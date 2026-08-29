@@ -114,29 +114,25 @@ body {
 }
 
 @keyframes orbFloat {
-
     0%,
     100% {
-        transform: translate(0, 0)scale(1)
+        transform: translate(0, 0) scale(1);
     }
-
     25% {
-        transform: translate(50px, -30px)scale(1.1)
+        transform: translate(50px, -30px) scale(1.1);
     }
-
     50% {
-        transform: translate(-30px, 50px)scale(.95)
+        transform: translate(-30px, 50px) scale(0.95);
     }
-
     75% {
-        transform: translate(30px, 30px)scale(1.05)
+        transform: translate(30px, 30px) scale(1.05);
     }
 }
 
 .grid-overlay {
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.02)1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02)1px, transparent 1px);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
     -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
@@ -416,16 +412,14 @@ body {
 }
 
 @keyframes pulse {
-
     0%,
     100% {
         opacity: 1;
-        transform: scale(1)
+        transform: scale(1);
     }
-
     50% {
-        opacity: .5;
-        transform: scale(.8)
+        opacity: 0.5;
+        transform: scale(0.8);
     }
 }
 
@@ -435,7 +429,7 @@ body {
     line-height: 1.1;
     letter-spacing: -0.04em;
     margin-bottom: 24px;
-    animation: fadeInUp .6s ease-out .1s both;
+    animation: fadeInUp 0.6s ease-out 0.1s both;
 }
 
 .hero-subtitle {
@@ -444,7 +438,7 @@ body {
     line-height: 1.75;
     margin-bottom: 36px;
     max-width: 520px;
-    animation: fadeInUp .6s ease-out .2s both;
+    animation: fadeInUp 0.6s ease-out 0.2s both;
 }
 
 .hero-actions {
@@ -452,14 +446,14 @@ body {
     align-items: center;
     gap: 16px;
     margin-bottom: 56px;
-    animation: fadeInUp .6s ease-out .3s both;
+    animation: fadeInUp 0.6s ease-out 0.3s both;
 }
 
 .hero-stats {
     display: flex;
     align-items: center;
     gap: 32px;
-    animation: fadeInUp .6s ease-out .4s both;
+    animation: fadeInUp 0.6s ease-out 0.4s both;
 }
 
 .stat {
@@ -536,14 +530,12 @@ body {
 }
 
 @keyframes floatCard {
-
     0%,
     100% {
-        transform: translateY(0)
+        transform: translateY(0);
     }
-
     50% {
-        transform: translateY(-15px)
+        transform: translateY(-15px);
     }
 }
 
@@ -594,12 +586,11 @@ body {
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(20px)
+        transform: translateY(20px);
     }
-
     to {
         opacity: 1;
-        transform: translateY(0)
+        transform: translateY(0);
     }
 }
 
@@ -1097,21 +1088,19 @@ body {
 
 @keyframes spinRing {
     to {
-        transform: rotate(360deg)
+        transform: rotate(360deg);
     }
 }
 
 @keyframes pulseCore {
-
     0%,
     100% {
-        opacity: .5;
-        transform: scale(.9)
+        opacity: 0.5;
+        transform: scale(0.9);
     }
-
     50% {
         opacity: 1;
-        transform: scale(1.1)
+        transform: scale(1.1);
     }
 }
 
@@ -1458,9 +1447,9 @@ body {
     text-align: center;
 }
 
-/* ===========================
-   Detail Modal
-   =========================== */
+/* ===========================================================
+   Detail Modal (With Fixed Score Ring Center Alignment)
+   =========================================================== */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -1471,16 +1460,15 @@ body {
     align-items: center;
     justify-content: center;
     padding: 32px;
-    animation: fadeIn .3s ease;
+    animation: fadeIn 0.3s ease;
 }
 
 @keyframes fadeIn {
     from {
-        opacity: 0
+        opacity: 0;
     }
-
     to {
-        opacity: 1
+        opacity: 1;
     }
 }
 
@@ -1493,18 +1481,17 @@ body {
     max-height: 85vh;
     overflow-y: auto;
     box-shadow: var(--shadow-lg);
-    animation: slideUp .3s ease;
+    animation: slideUp 0.3s ease;
 }
 
 @keyframes slideUp {
     from {
         opacity: 0;
-        transform: translateY(30px)
+        transform: translateY(30px);
     }
-
     to {
         opacity: 1;
-        transform: translateY(0)
+        transform: translateY(0);
     }
 }
 
@@ -1580,7 +1567,7 @@ body {
     padding: 28px;
 }
 
-/* Modal Scores */
+/* Modal Scores Container */
 .modal-scores {
     display: flex;
     gap: 32px;
@@ -1592,36 +1579,61 @@ body {
     border-radius: 16px;
 }
 
-.modal-main-score {
+/* Centered Score Ring Structure */
+.modal-main-score,
+.modal-score-ring {
     position: relative;
     width: 130px;
     height: 130px;
     flex-shrink: 0;
-}
-
-.modal-main-score .score-ring-svg {
-    width: 100%;
-    height: 100%;
-}
-
-.modal-main-score .score-value {
-    position: absolute;
-    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.modal-main-score .score-number {
-    font-size: 2.2rem;
-    font-weight: 900;
+.modal-main-score .score-ring-svg,
+.modal-score-ring svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
 }
 
-.modal-main-score .score-max {
-    font-size: 0.85rem;
+/* Vertical Stack Centering for Score & /100 */
+.modal-main-score .score-value,
+.modal-score-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.modal-main-score .score-number,
+#modal-overall-score {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+}
+
+.modal-main-score .score-max,
+.modal-score-center small,
+.modal-score-center span.out-of {
+    font-size: 0.75rem;
     color: var(--text-muted);
-    align-self: flex-end;
-    margin-bottom: 4px;
+    font-weight: 500;
+    margin-top: 5px;
+    line-height: 1;
 }
 
 .modal-cat-scores {
@@ -2159,8 +2171,11 @@ body {
     position: absolute;
     inset: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    line-height: 1;
 }
 
 .score-number {
@@ -2171,11 +2186,11 @@ body {
 }
 
 .score-max {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--text-muted);
     font-weight: 500;
-    align-self: flex-end;
-    margin-bottom: 4px;
+    margin-top: 6px;
+    line-height: 1;
 }
 
 .score-meta h3 {
