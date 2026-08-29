@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeAI — AI-Powered Resume Analyzer, ATS Simulator & Bulk Ranking</title>
+    <meta name="description" content="Bulk analyze resumes, rank candidates with AI, simulate ATS screening, and get actionable improvement suggestions. Upload multiple PDFs and find the best candidates instantly.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo" id="nav-logo">
+                <div class="logo-icon">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                        <rect x="2" y="4" width="18" height="22" rx="2" stroke="url(#logoGrad)" stroke-width="2"/>
+                        <path d="M7 10h8M7 14h10M7 18h6" stroke="url(#logoGrad)" stroke-width="1.5" stroke-linecap="round"/>
+                        <circle cx="21" cy="7" r="6" fill="url(#logoGrad2)"/>
+                        <path d="M19 7l1.5 1.5L23 5.5" stroke="#0a0a1a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="logoGrad" x1="2" y1="4" x2="20" y2="26"><stop stop-color="#818cf8"/><stop offset="1" stop-color="#c084fc"/></linearGradient>
+                            <linearGradient id="logoGrad2" x1="15" y1="1" x2="27" y2="13"><stop stop-color="#34d399"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span>ResumeAI</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#single-upload" class="nav-link">Single</a>
+                <a href="#bulk-upload" class="nav-link nav-cta">Bulk Analyze & Rank</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge"><span class="badge-dot"></span>AI-Powered ATS + Bulk Analysis Engine</div>
+            <h1 class="hero-title">
+                Bulk Analyze &amp; Rank<br>
+                <span class="gradient-text">Resumes with AI</span>
+            </h1>
+            <p class="hero-subtitle">
+                Upload multiple PDFs, rank candidates instantly, simulate ATS screening, and get detailed improvement suggestions — all powered by AI.
+            </p>
+            <div class="hero-actions">
+                <a href="#bulk-upload" class="btn btn-primary" id="hero-cta">
+                    <span>Bulk Upload PDFs</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m-4-4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a href="#single-upload" class="btn btn-ghost" id="hero-single">Single Resume</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number" data-count="50000">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">Resumes Analyzed</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number" data-count="95">0</span><span class="stat-suffix">%</span>
+                    <span class="stat-label">ATS Accuracy</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number" data-count="500">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">Bulk PDFs / Session</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-card card-1">
+                <div class="mini-score">
+                    <svg viewBox="0 0 36 36" class="mini-ring"><path d="M18 2.0845a15.9155 15.9155 0 010 31.831 15.9155 15.9155 0 010-31.831" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="3"/><path d="M18 2.0845a15.9155 15.9155 0 010 31.831 15.9155 15.9155 0 010-31.831" fill="none" stroke="url(#ringGrad1)" stroke-width="3" stroke-dasharray="87,100" stroke-linecap="round"/><defs><linearGradient id="ringGrad1"><stop stop-color="#34d399"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs></svg>
+                    <span>87</span>
+                </div>
+                <div class="mini-label">ATS Score</div>
+            </div>
+            <div class="floating-card card-2">
+                <div class="mini-icon green">📄</div>
+                <div class="mini-label">12 PDFs ranked</div>
+            </div>
+            <div class="floating-card card-3">
+                <div class="mini-icon purple">🏆</div>
+                <div class="mini-label">#1 Candidate found</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Features</span>
+                <h2 class="section-title">Everything You Need to<br><span class="gradient-text">Hire the Best Candidates</span></h2>
+                <p class="section-desc">From single resume reviews to bulk screening of hundreds of PDFs — our AI handles it all.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" id="feature-bulk">
+                    <div class="feature-icon" style="--accent: #22d3ee;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3>Bulk PDF Upload</h3>
+                    <p>Upload dozens of resume PDFs at once. Our engine extracts text and analyzes each one in parallel.</p>
+                </div>
+                <div class="feature-card" id="feature-ranking">
+                    <div class="feature-icon" style="--accent: #fb923c;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3>Smart Ranking</h3>
+                    <p>Candidates are automatically ranked by overall score, ATS fit, keywords, and content quality.</p>
+                </div>
+                <div class="feature-card" id="feature-ats">
+                    <div class="feature-icon" style="--accent: #818cf8;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3>ATS Simulator</h3>
+                    <p>Paste a job description and see how each resume scores against it — just like a real ATS system.</p>
+                </div>
+                <div class="feature-card" id="feature-keywords">
+                    <div class="feature-icon" style="--accent: #c084fc;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3>Keyword Matching</h3>
+                    <p>See which keywords each resume has and which are missing — tailored to your specific job posting.</p>
+                </div>
+                <div class="feature-card" id="feature-improve">
+                    <div class="feature-icon" style="--accent: #34d399;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3>Improvement Engine</h3>
+                    <p>Get specific, actionable suggestions for each resume — rewrite bullets, add metrics, fix formatting.</p>
+                </div>
+                <div class="feature-card" id="feature-export">
+                    <div class="feature-icon" style="--accent: #f472b6;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3>Export Reports</h3>
+                    <p>Download detailed ranking reports and individual analysis as a shareable summary.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Process</span>
+                <h2 class="section-title">Four Steps to<br><span class="gradient-text">Find Top Candidates</span></h2>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card" id="step-1">
+                    <div class="step-number">01</div>
+                    <div class="step-content"><h3>Upload PDFs</h3><p>Drag & drop multiple resume PDFs or paste text for a single analysis.</p></div>
+                    <div class="step-line"></div>
+                </div>
+                <div class="step-card" id="step-2">
+                    <div class="step-number">02</div>
+                    <div class="step-content"><h3>Set Job Description</h3><p>Paste the target job description so the ATS can match candidates accurately.</p></div>
+                    <div class="step-line"></div>
+                </div>
+                <div class="step-card" id="step-3">
+                    <div class="step-number">03</div>
+                    <div class="step-content"><h3>AI Analyzes & Ranks</h3><p>Each resume is scored across 5 dimensions and ranked against the others.</p></div>
+                    <div class="step-line"></div>
+                </div>
+                <div class="step-card" id="step-4">
+                    <div class="step-number">04</div>
+                    <div class="step-content"><h3>Review & Improve</h3><p>Explore detailed reports, view improvements, and export the ranking table.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- BULK UPLOAD & ATS SECTION                  -->
+    <!-- ========================================== -->
+    <section class="upload-section" id="bulk-upload">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Bulk Analysis</span>
+                <h2 class="section-title">Upload Multiple PDFs &<br><span class="gradient-text">Rank Candidates with ATS</span></h2>
+                <p class="section-desc">Drop all your candidate resumes below and paste the job description. Our AI will rank them instantly.</p>
+            </div>
+            <div class="bulk-wrapper">
+                <!-- Job Description Input -->
+                <div class="jd-panel">
+                    <div class="jd-header">
+                        <div class="jd-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <h3>Job Description <span class="required-badge">Required for ATS</span></h3>
+                    </div>
+                    <textarea class="jd-textarea" id="jd-input" placeholder="Paste the full job description here...&#10;&#10;Example:&#10;Senior Software Engineer&#10;&#10;Requirements:&#10;• 5+ years experience with Python, JavaScript, React&#10;• Strong knowledge of AWS, Docker, Kubernetes&#10;• Experience with CI/CD pipelines&#10;• Excellent communication and leadership skills&#10;• Bachelor's in Computer Science or related field"></textarea>
+                    <div class="jd-meta">
+                        <div class="jd-meta-item">
+                            <label for="jd-role-input">Target Role</label>
+                            <input type="text" id="jd-role-input" class="jd-role-input" placeholder="e.g., Senior Software Engineer">
+                        </div>
+                        <div class="jd-meta-item">
+                            <label for="jd-min-score">Min Score Filter</label>
+                            <input type="number" id="jd-min-score" class="jd-role-input" placeholder="0" min="0" max="100" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bulk Drop Zone -->
+                <div class="bulk-drop-zone" id="bulk-drop-zone">
+                    <div class="bulk-drop-content">
+                        <div class="bulk-drop-icon">
+                            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <p class="bulk-drop-title">Drop resume PDFs here</p>
+                        <p class="bulk-drop-sub">or <span class="browse-link" id="bulk-browse">browse files</span> — upload up to 50 PDFs</p>
+                        <p class="bulk-drop-formats">PDF files only • Text will be extracted automatically</p>
+                    </div>
+                    <input type="file" id="bulk-file-input" accept=".pdf,.txt,.doc,.docx" multiple hidden>
+                </div>
+
+                <!-- File Queue -->
+                <div class="file-queue" id="file-queue" style="display:none;">
+                    <div class="queue-header">
+                        <h4><span id="queue-count">0</span> files ready</h4>
+                        <div class="queue-actions">
+                            <button class="btn-small btn-outline" id="clear-queue-btn">Clear All</button>
+                            <button class="btn-small btn-outline" id="add-more-btn">+ Add More</button>
+                        </div>
+                    </div>
+                    <div class="queue-list" id="queue-list"></div>
+                    <button class="btn btn-primary btn-analyze-bulk" id="bulk-analyze-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <span>Analyze & Rank All Resumes</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bulk Loading -->
+    <section class="loading-section" id="bulk-loading" style="display:none;">
+        <div class="section-container">
+            <div class="loader-wrapper">
+                <div class="ai-loader"><div class="loader-ring"></div><div class="loader-ring"></div><div class="loader-ring"></div>
+                    <div class="loader-core"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+                <h3 class="loader-title">Analyzing <span id="bulk-loader-count">0</span> Resumes</h3>
+                <p class="loader-subtitle" id="bulk-loader-status">Extracting text from PDFs...</p>
+                <div class="loader-progress"><div class="loader-progress-bar" id="bulk-progress-bar"></div></div>
+                <div class="loader-file-status" id="loader-file-status"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- RANKING DASHBOARD                          -->
+    <!-- ========================================== -->
+    <section class="ranking-section" id="ranking-section" style="display:none;">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Results</span>
+                <h2 class="section-title">Candidate<br><span class="gradient-text">Ranking Dashboard</span></h2>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="rank-summary" id="rank-summary">
+                <div class="rank-summary-card">
+                    <div class="rank-summary-icon" style="background:rgba(52,211,153,0.12);color:#34d399;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2m21-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div class="rank-summary-data"><span class="rank-summary-number" id="total-candidates">0</span><span class="rank-summary-label">Total Candidates</span></div>
+                </div>
+                <div class="rank-summary-card">
+                    <div class="rank-summary-icon" style="background:rgba(129,140,248,0.12);color:#818cf8;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div class="rank-summary-data"><span class="rank-summary-number" id="avg-ats">0%</span><span class="rank-summary-label">Avg ATS Score</span></div>
+                </div>
+                <div class="rank-summary-card">
+                    <div class="rank-summary-icon" style="background:rgba(251,146,60,0.12);color:#fb923c;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div class="rank-summary-data"><span class="rank-summary-number" id="top-score">0</span><span class="rank-summary-label">Top Score</span></div>
+                </div>
+                <div class="rank-summary-card">
+                    <div class="rank-summary-icon" style="background:rgba(244,114,182,0.12);color:#f472b6;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div class="rank-summary-data"><span class="rank-summary-number" id="below-threshold">0</span><span class="rank-summary-label">Below Threshold</span></div>
+                </div>
+            </div>
+
+            <!-- Sort & Filter Controls -->
+            <div class="rank-controls">
+                <div class="rank-sort">
+                    <label>Sort by:</label>
+                    <select id="sort-by" class="rank-select">
+                        <option value="overall">Overall Score</option>
+                        <option value="ats">ATS Score</option>
+                        <option value="keywords">Keywords Match</option>
+                        <option value="content">Content Quality</option>
+                        <option value="format">Format & Layout</option>
+                        <option value="grammar">Grammar & Clarity</option>
+                    </select>
+                    <button class="btn-icon" id="sort-dir-btn" title="Toggle sort direction">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </div>
+                <div class="rank-filter">
+                    <label>Filter:</label>
+                    <button class="filter-chip active" data-filter="all">All</button>
+                    <button class="filter-chip" data-filter="pass">ATS Pass (≥70)</button>
+                    <button class="filter-chip" data-filter="review">Review (50-69)</button>
+                    <button class="filter-chip" data-filter="fail">Fail (&lt;50)</button>
+                </div>
+                <button class="btn btn-ghost btn-sm" id="export-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Export CSV
+                </button>
+            </div>
+
+            <!-- Ranking Table -->
+            <div class="rank-table-wrapper">
+                <table class="rank-table" id="rank-table">
+                    <thead>
+                        <tr>
+                            <th class="th-rank">#</th>
+                            <th class="th-name">Candidate</th>
+                            <th class="th-score">Overall</th>
+                            <th class="th-score">ATS</th>
+                            <th class="th-score">Keywords</th>
+                            <th class="th-score">Content</th>
+                            <th class="th-score">Format</th>
+                            <th class="th-score">Grammar</th>
+                            <th class="th-status">Status</th>
+                            <th class="th-action">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rank-table-body"></tbody>
+                </table>
+            </div>
+
+            <div class="rank-footer">
+                <button class="btn btn-primary" id="bulk-again-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Analyze Another Batch
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- INDIVIDUAL DETAIL MODAL                    -->
+    <!-- ========================================== -->
+    <div class="modal-overlay" id="detail-modal" style="display:none;">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <span class="modal-rank-badge" id="modal-rank">#1</span>
+                    <h2 id="modal-candidate-name">Candidate</h2>
+                </div>
+                <button class="modal-close" id="modal-close">✕</button>
+            </div>
+            <div class="modal-body">
+                <!-- Score Overview -->
+                <div class="modal-scores">
+                    <div class="modal-main-score">
+                        <svg viewBox="0 0 120 120" class="score-ring-svg">
+                            <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/>
+                            <circle cx="60" cy="60" r="52" fill="none" stroke="url(#modalScoreGrad)" stroke-width="8" stroke-dasharray="0 327" stroke-linecap="round" class="modal-ring-progress" id="modal-ring-progress" transform="rotate(-90 60 60)"/>
+                            <defs><linearGradient id="modalScoreGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#818cf8"/><stop offset="50%" stop-color="#c084fc"/><stop offset="100%" stop-color="#34d399"/></linearGradient></defs>
+                        </svg>
+                        <div class="score-value"><span class="score-number" id="modal-overall-score">0</span><span class="score-max">/100</span></div>
+                    </div>
+                    <div class="modal-cat-scores" id="modal-cat-scores"></div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="modal-tabs">
+                    <button class="modal-tab active" data-mtab="improvements">Improvements</button>
+                    <button class="modal-tab" data-mtab="strengths">Strengths</button>
+                    <button class="modal-tab" data-mtab="keywords">Keywords</button>
+                    <button class="modal-tab" data-mtab="ats">ATS Details</button>
+                </div>
+
+                <!-- Tab Panels -->
+                <div class="modal-panel active" id="mpanel-improvements">
+                    <div class="improvements-list" id="modal-improvements"></div>
+                </div>
+                <div class="modal-panel" id="mpanel-strengths">
+                    <div class="improvements-list" id="modal-strengths"></div>
+                </div>
+                <div class="modal-panel" id="mpanel-keywords">
+                    <div class="modal-kw-section">
+                        <h4>✅ Found Keywords</h4>
+                        <div class="keywords-cloud" id="modal-found-kw"></div>
+                    </div>
+                    <div class="modal-kw-section">
+                        <h4>❌ Missing Keywords</h4>
+                        <div class="keywords-cloud missing" id="modal-missing-kw"></div>
+                    </div>
+                </div>
+                <div class="modal-panel" id="mpanel-ats">
+                    <div class="ats-details" id="modal-ats-details"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SINGLE RESUME UPLOAD (kept from before)    -->
+    <!-- ========================================== -->
+    <section class="upload-section single-section" id="single-upload">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Single Analysis</span>
+                <h2 class="section-title">Analyze a Single Resume<br><span class="gradient-text">In-Depth</span></h2>
+                <p class="section-desc">Upload one resume or paste text for a detailed breakdown with personalized improvement suggestions.</p>
+            </div>
+            <div class="upload-area-wrapper">
+                <div class="upload-tabs">
+                    <button class="upload-tab active" id="tab-file" data-tab="file">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 2v6h6M12 18v-6M9 15l3-3 3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        Upload File
+                    </button>
+                    <button class="upload-tab" id="tab-text" data-tab="text">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        Paste Text
+                    </button>
+                </div>
+                <div class="upload-content">
+                    <div class="tab-panel active" id="panel-file">
+                        <div class="drop-zone" id="drop-zone">
+                            <div class="drop-zone-content">
+                                <div class="drop-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                                <p class="drop-title">Drop your resume here</p>
+                                <p class="drop-subtitle">or <span class="browse-link">browse files</span></p>
+                                <p class="drop-formats">Supports PDF, DOC, DOCX, TXT</p>
+                            </div>
+                            <input type="file" id="file-input" accept=".pdf,.doc,.docx,.txt" hidden>
+                        </div>
+                        <div class="file-preview" id="file-preview" style="display:none;">
+                            <div class="file-info">
+                                <div class="file-icon">📄</div>
+                                <div class="file-details"><span class="file-name" id="file-name"></span><span class="file-size" id="file-size"></span></div>
+                                <button class="file-remove" id="file-remove" aria-label="Remove file">✕</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-panel" id="panel-text">
+                        <textarea class="text-input" id="resume-text" placeholder="Paste your resume content here...&#10;&#10;Example:&#10;John Doe&#10;Software Engineer&#10;john@email.com | (555) 123-4567&#10;&#10;EXPERIENCE&#10;Senior Developer at TechCorp (2020-Present)&#10;• Led a team of 8 engineers to deliver a microservices platform&#10;• Reduced API response time by 40% through optimization..."></textarea>
+                    </div>
+                    <div class="upload-actions">
+                        <div class="job-input-wrapper">
+                            <label for="single-job-input" class="job-label">Target Role (optional)</label>
+                            <input type="text" id="single-job-input" class="job-input" placeholder="e.g., Senior Software Engineer">
+                        </div>
+                        <button class="btn btn-primary btn-analyze" id="single-analyze-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span>Analyze Resume</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Single Loading -->
+    <section class="loading-section" id="single-loading" style="display:none;">
+        <div class="section-container">
+            <div class="loader-wrapper">
+                <div class="ai-loader"><div class="loader-ring"></div><div class="loader-ring"></div><div class="loader-ring"></div>
+                    <div class="loader-core"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+                <h3 class="loader-title">Analyzing Your Resume</h3>
+                <p class="loader-subtitle" id="single-loader-status">Parsing document structure...</p>
+                <div class="loader-progress"><div class="loader-progress-bar" id="single-progress-bar"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Single Results Dashboard -->
+    <section class="results-section" id="single-results" style="display:none;">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Results</span>
+                <h2 class="section-title">Your Resume<br><span class="gradient-text">Analysis Report</span></h2>
+            </div>
+            <div class="results-overview">
+                <div class="score-card-main">
+                    <div class="score-ring-wrapper">
+                        <svg viewBox="0 0 120 120" class="score-ring-svg">
+                            <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/>
+                            <circle cx="60" cy="60" r="52" fill="none" stroke="url(#singleScoreGrad)" stroke-width="8" stroke-dasharray="0 327" stroke-linecap="round" class="score-ring-progress" id="single-ring-progress" transform="rotate(-90 60 60)"/>
+                            <defs><linearGradient id="singleScoreGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#818cf8"/><stop offset="50%" stop-color="#c084fc"/><stop offset="100%" stop-color="#34d399"/></linearGradient></defs>
+                        </svg>
+                        <div class="score-value"><span class="score-number" id="s-overall-score">0</span><span class="score-max">/100</span></div>
+                    </div>
+                    <div class="score-meta"><h3 id="s-score-verdict">Calculating...</h3><p id="s-score-summary">Please wait.</p></div>
+                </div>
+                <div class="category-scores" id="s-category-scores">
+                    <div class="cat-score"><div class="cat-header"><span class="cat-name">ATS Compatibility</span><span class="cat-value" id="s-cat-ats-val">0%</span></div><div class="cat-bar"><div class="cat-bar-fill" id="s-cat-ats-bar" style="--fill-color:#818cf8;"></div></div></div>
+                    <div class="cat-score"><div class="cat-header"><span class="cat-name">Keywords & Skills</span><span class="cat-value" id="s-cat-kw-val">0%</span></div><div class="cat-bar"><div class="cat-bar-fill" id="s-cat-kw-bar" style="--fill-color:#c084fc;"></div></div></div>
+                    <div class="cat-score"><div class="cat-header"><span class="cat-name">Format & Layout</span><span class="cat-value" id="s-cat-fmt-val">0%</span></div><div class="cat-bar"><div class="cat-bar-fill" id="s-cat-fmt-bar" style="--fill-color:#34d399;"></div></div></div>
+                    <div class="cat-score"><div class="cat-header"><span class="cat-name">Content Quality</span><span class="cat-value" id="s-cat-cnt-val">0%</span></div><div class="cat-bar"><div class="cat-bar-fill" id="s-cat-cnt-bar" style="--fill-color:#f472b6;"></div></div></div>
+                    <div class="cat-score"><div class="cat-header"><span class="cat-name">Grammar & Clarity</span><span class="cat-value" id="s-cat-gram-val">0%</span></div><div class="cat-bar"><div class="cat-bar-fill" id="s-cat-gram-bar" style="--fill-color:#fb923c;"></div></div></div>
+                </div>
+            </div>
+            <div class="findings-grid">
+                <div class="findings-card strengths-card"><div class="findings-header"><div class="findings-icon green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Strengths</h3></div><ul class="findings-list" id="s-strengths-list"></ul></div>
+                <div class="findings-card improvements-card"><div class="findings-header"><div class="findings-icon orange"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Improvements</h3></div><ul class="findings-list" id="s-improvements-list"></ul></div>
+                <div class="findings-card keywords-card"><div class="findings-header"><div class="findings-icon purple"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Keywords Detected</h3></div><div class="keywords-cloud" id="s-found-kw"></div></div>
+                <div class="findings-card missing-card"><div class="findings-header"><div class="findings-icon red"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Missing Keywords</h3></div><div class="keywords-cloud missing" id="s-missing-kw"></div></div>
+            </div>
+            <div class="tips-section"><h3 class="tips-title"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke-linecap="round" stroke-linejoin="round"/></svg>Pro Tips</h3><div class="tips-grid" id="s-tips-grid"></div></div>
+            <div class="results-footer"><button class="btn btn-primary" id="single-again-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round"/></svg>Analyze Another Resume</button></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="nav-logo">
+                    <div class="logo-icon"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><rect x="2" y="4" width="18" height="22" rx="2" stroke="url(#logoGrad)" stroke-width="2"/><path d="M7 10h8M7 14h10M7 18h6" stroke="url(#logoGrad)" stroke-width="1.5" stroke-linecap="round"/><circle cx="21" cy="7" r="6" fill="url(#logoGrad2)"/><path d="M19 7l1.5 1.5L23 5.5" stroke="#0a0a1a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                    <span>ResumeAI</span>
+                </div>
+                <p class="footer-tagline">AI-powered bulk resume analysis, ATS simulator & candidate ranking.</p>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2026 ResumeAI. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
