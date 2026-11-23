@@ -32,4 +32,4 @@ A modern, responsive web application designed to analyze resumes, simulate Appli
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/whiteknight-spec/resume-ai-analyzer.git](https://github.com/whiteknight-spec/resume-ai-analyzer.git)
+   git clone [https://github.com/whiteknight-spec/ai-resume-gravity.git](https://github.com/whiteknight-spec/ai-resume-gravity.git)
